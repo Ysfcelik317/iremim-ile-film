@@ -14,7 +14,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f0f0f;
+            background: #0a0a0a;
             color: #fff;
             height: 100vh;
             overflow: hidden;
@@ -24,7 +24,7 @@
             display: none !important;
         }
         
-        /* ===== GİRİŞ EKRANI ===== */
+        /* ===== GİRİŞ EKRANI - ARKA PLAN GÖRSELİ ===== */
         .login-screen {
             display: flex;
             flex-direction: column;
@@ -32,63 +32,130 @@
             justify-content: center;
             height: 100%;
             padding: 20px;
-            background: #0f0f0f;
+            position: relative;
+        }
+        
+        .login-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://raw.githubusercontent.com/ysfcelik317/iremim-ile-film/main/backgroung.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .login-screen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(20,20,40,0.75) 50%, rgba(10,10,10,0.9) 100%);
+            z-index: 0;
+        }
+        
+        .login-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 400px;
         }
         
         .logo {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #e94560, #ff6b6b);
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+        
+        .logo-gradient {
+            background: linear-gradient(135deg, #ff6b6b 0%, #e94560 50%, #c73e5d 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-align: center;
+            background-clip: text;
         }
         
         .subtitle {
-            color: #888;
+            color: rgba(255,255,255,0.6);
             margin-bottom: 50px;
-            font-size: 16px;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .glass-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
         
         .input-group {
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         input {
             width: 100%;
-            padding: 15px;
+            padding: 16px 20px;
             border: none;
-            border-radius: 12px;
-            background: #1a1a1a;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.1);
             color: #fff;
             font-size: 16px;
             outline: none;
-            border: 1px solid #333;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            background: rgba(255,255,255,0.15);
+            border-color: #e94560;
+            box-shadow: 0 0 20px rgba(233,69,96,0.3);
         }
         
         input::placeholder {
-            color: #666;
+            color: rgba(255,255,255,0.4);
         }
         
         .btn {
             width: 100%;
-            max-width: 300px;
-            padding: 15px;
+            padding: 18px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(45deg, #e94560, #ff6b6b);
+            border-radius: 16px;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
             color: #fff;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            margin-bottom: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(233,69,96,0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .btn:active {
             transform: scale(0.98);
+            box-shadow: 0 5px 15px rgba(233,69,96,0.3);
         }
         
         /* ===== ANA EKRAN ===== */
@@ -97,7 +164,7 @@
             flex-direction: column;
             height: 100%;
             padding: 20px;
-            background: #0f0f0f;
+            background: #0a0a0a;
         }
         
         .home-header {
@@ -105,84 +172,156 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            padding-top: 10px;
+            padding-top: 20px;
+        }
+        
+        .greeting {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .greeting-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
         }
         
         .start-party-btn {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: #fff;
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 14px 28px;
+            border-radius: 16px;
             border: none;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(76,175,80,0.3);
+            transition: all 0.3s;
+        }
+        
+        .start-party-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .join-btn {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            backdrop-filter: blur(10px);
         }
         
-        .join-btn {
-            background: transparent;
-            color: #fff;
-            border: none;
-            font-size: 16px;
+        .section-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 5px;
-            cursor: pointer;
+            margin-bottom: 20px;
         }
         
         .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 700;
             color: #fff;
         }
         
+        .section-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+        
+        /* PLATFORM KARTLARI */
         .platforms-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 16px;
+            margin-top: 10px;
         }
         
         .platform-card {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.2s;
-            border: 1px solid #333;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.06);
             aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .platform-card:hover::before,
+        .platform-card:active::before {
+            opacity: 1;
         }
         
         .platform-card:active {
             transform: scale(0.95);
+            border-color: rgba(255,255,255,0.2);
         }
         
         .platform-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            margin-bottom: 10px;
+            font-size: 32px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
         }
         
-        .youtube { background: #FF0000; }
-        .browser { background: #00D4FF; }
+        .youtube { 
+            background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+        }
+        
+        .browser { 
+            background: linear-gradient(135deg, #00D4FF 0%, #0099CC 100%);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+        }
         
         .platform-name {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .platform-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+            position: relative;
+            z-index: 1;
         }
         
         /* ===== MODAL ===== */
@@ -193,6 +332,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -204,56 +344,75 @@
         }
         
         .modal {
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 30px;
+            background: rgba(20,20,30,0.95);
+            border-radius: 28px;
+            padding: 32px;
             width: 90%;
-            max-width: 350px;
+            max-width: 380px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
         
         .modal-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
             text-align: center;
+        }
+        
+        .modal-subtitle {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            margin-bottom: 24px;
         }
         
         .modal-input {
             width: 100%;
-            padding: 15px;
-            border: 1px solid #333;
-            border-radius: 12px;
-            background: #0f0f0f;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
             color: #fff;
-            font-size: 18px;
+            font-size: 20px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+        }
+        
+        .modal-input:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 20px rgba(233,69,96,0.2);
         }
         
         .modal-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
         
         .modal-btn {
             flex: 1;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 16px;
+            border-radius: 16px;
             border: none;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.3s;
         }
         
         .modal-btn-primary {
-            background: #e94560;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
             color: #fff;
+            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
         }
         
         .modal-btn-secondary {
-            background: #333;
+            background: rgba(255,255,255,0.08);
             color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
         /* ===== İZLEME EKRANI ===== */
@@ -261,102 +420,130 @@
             display: none;
             flex-direction: column;
             height: 100%;
-            background: #000;
+            background: #0a0a0a;
         }
         
         .watch-header {
-            padding: 12px 15px;
-            background: #0f0f0f;
+            padding: 16px 20px;
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         
         .room-info {
-            font-size: 14px;
-            color: #888;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
         }
         
         .room-code {
-            font-weight: bold;
+            font-weight: 800;
             color: #e94560;
-            font-size: 18px;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
         
         .voice-btn-header {
-            background: #1a1a1a;
+            background: rgba(255,255,255,0.08);
             color: #fff;
-            border: 1px solid #333;
-            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 18px;
             border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 14px;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
         
         .voice-btn-header.active {
-            background: #4CAF50;
-            border-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            border-color: transparent;
+            box-shadow: 0 5px 20px rgba(76,175,80,0.3);
         }
         
         .chat-toggle-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #1a1a1a;
-            border: 1px solid #333;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
             color: #fff;
             font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            backdrop-filter: blur(10px);
         }
         
         /* ===== VİDEO BÖLÜMÜ ===== */
         .video-section {
-            padding: 15px;
-            background: #0f0f0f;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .video-input-group {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
         
         .video-input {
             flex: 1;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            padding: 12px;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 18px;
+            border-radius: 16px;
             color: #fff;
             font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .video-input:focus {
+            border-color: #e94560;
+            background: rgba(255,255,255,0.08);
         }
         
         .load-btn {
-            padding: 12px 20px;
-            background: #e94560;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
             color: #fff;
             border: none;
-            border-radius: 10px;
-            font-weight: bold;
+            border-radius: 16px;
+            font-weight: 700;
             cursor: pointer;
-            white-space: nowrap;
+            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
+            transition: all 0.3s;
+        }
+        
+        .load-btn:active {
+            transform: scale(0.95);
         }
         
         .video-container {
             width: 100%;
-            aspect-ratio: 16/9;
+            flex: 1;
             background: #000;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            margin-top: 10px;
             display: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
         
         .video-container.active {
@@ -371,50 +558,73 @@
         
         .video-placeholder {
             width: 100%;
-            aspect-ratio: 16/9;
-            background: #1a1a1a;
-            border-radius: 12px;
+            flex: 1;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #666;
-            margin-top: 10px;
+            color: rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-style: dashed;
         }
         
         .video-placeholder-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
+            font-size: 60px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        .video-placeholder-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .video-placeholder-sub {
+            font-size: 13px;
+            margin-top: 8px;
+            color: rgba(255,255,255,0.2);
         }
         
         /* ===== KONTROLLER ===== */
         .controls-bar {
-            padding: 15px;
-            background: #0f0f0f;
+            padding: 20px;
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(20px);
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 24px;
             align-items: center;
-            border-top: 1px solid #222;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
             border: none;
-            background: #1a1a1a;
+            background: rgba(255,255,255,0.08);
             color: #fff;
-            font-size: 20px;
+            font-size: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: 1px solid #333;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
         }
         
         .control-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.9);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .control-btn.primary {
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
+            border: none;
         }
         
         /* ===== SOHBET PANELİ ===== */
@@ -423,14 +633,17 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 50%;
-            background: #1a1a1a;
-            border-radius: 20px 20px 0 0;
+            height: 55%;
+            background: rgba(15,15,25,0.98);
+            backdrop-filter: blur(30px);
+            border-radius: 28px 28px 0 0;
             transform: translateY(100%);
-            transition: transform 0.3s;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 -20px 60px rgba(0,0,0,0.5);
         }
         
         .chat-panel.open {
@@ -438,65 +651,109 @@
         }
         
         .chat-header {
-            padding: 15px;
-            border-bottom: 1px solid #333;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
+        .chat-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .chat-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
+            padding: 20px 24px;
         }
         
         .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #0f0f0f;
-            border-radius: 12px;
-            animation: fadeIn 0.3s;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            animation: messageSlide 0.3s ease;
+            max-width: 85%;
         }
         
-        @keyframes fadeIn {
+        .message.own {
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            margin-left: auto;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 4px;
+        }
+        
+        @keyframes messageSlide {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .message-user {
             font-size: 12px;
-            color: #e94560;
-            margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 700;
+            margin-bottom: 6px;
+            opacity: 0.8;
+        }
+        
+        .message-text {
+            font-size: 14px;
+            line-height: 1.4;
         }
         
         .chat-input-area {
-            padding: 15px;
+            padding: 20px 24px;
             display: flex;
-            gap: 10px;
-            border-top: 1px solid #333;
+            gap: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .chat-input {
             flex: 1;
-            background: #0f0f0f;
-            border: 1px solid #333;
-            padding: 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 20px;
             border-radius: 20px;
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
+            outline: none;
+        }
+        
+        .chat-input:focus {
+            border-color: #e94560;
         }
         
         .send-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
             border: none;
-            background: #e94560;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
             color: #fff;
             font-size: 18px;
             cursor: pointer;
+            box-shadow: 0 5px 20px rgba(233,69,96,0.3);
+            transition: all 0.3s;
+        }
+        
+        .send-btn:active {
+            transform: scale(0.9);
         }
         
         /* ===== SESLİ SOHBET OVERLAY ===== */
@@ -506,7 +763,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(30px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -519,75 +777,115 @@
         }
         
         .voice-animation {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #e94560, #ff6b6b);
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            animation: voicePulse 1.5s infinite;
+            font-size: 70px;
+            animation: voicePulse 2s infinite;
+            box-shadow: 0 0 60px rgba(233,69,96,0.4);
         }
         
         @keyframes voicePulse {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 0.9; }
         }
         
         .voice-text {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #fff;
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .voice-sub {
+            margin-top: 10px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
         }
         
         .voice-close-btn {
-            margin-top: 30px;
-            padding: 12px 30px;
-            background: #333;
+            margin-top: 40px;
+            padding: 16px 40px;
+            background: rgba(255,255,255,0.1);
             color: #fff;
-            border: none;
-            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
     <!-- ===== GİRİŞ EKRANI ===== -->
     <div class="login-screen" id="loginScreen">
-        <div class="logo">🎬 İREMİM İLE FİLM</div>
-        <div class="subtitle">HAYDİ GEL GÜLÜMM</div>
-        
-        <div class="input-group">
-            <input type="text" id="userName" placeholder="Adınız" maxlength="20">
+        <div class="login-content">
+            <div class="logo"><span class="logo-gradient">🎬 İREMİM İLE FİLM</span></div>
+            <div class="subtitle">Haydi Gel Gülümm</div>
+            
+            <div class="glass-card">
+                <div class="input-group">
+                    <label class="input-label">Kullanıcı Adı</label>
+                    <input type="text" id="userName" placeholder="Adınızı girin" maxlength="20">
+                </div>
+                
+                <button class="btn" onclick="goToHome()">Başlayalım</button>
+            </div>
         </div>
-        
-        <button class="btn" onclick="goToHome()">Devam Et</button>
     </div>
     
     <!-- ===== ANA EKRAN ===== -->
     <div class="home-screen" id="homeScreen">
         <div class="home-header">
-            <button class="start-party-btn" onclick="createRoom()">
-                📹 Start Party
-            </button>
+            <div>
+                <div class="greeting">Hoş geldin,</div>
+                <div class="greeting-name" id="userGreeting">Kullanıcı</div>
+            </div>
             <button class="join-btn" onclick="showJoinModal()">
-                🔗 Join
+                🔗 Katıl
             </button>
         </div>
         
-        <div class="section-title">Start Watching</div>
+        <button class="start-party-btn" onclick="createRoom()" style="margin-bottom: 30px; width: 100%; justify-content: center;">
+            📹 Yeni Oda Oluştur
+        </button>
+        
+        <div class="section-header">
+            <div>
+                <div class="section-title">Nereden İzleyelim?</div>
+                <div class="section-subtitle">Platform seçin ve başlayın</div>
+            </div>
+        </div>
         
         <div class="platforms-grid">
-            <div class="platform-card" onclick="setPlatform('youtube')">
+            <div class="platform-card" onclick="openYouTube()">
                 <div class="platform-icon youtube">▶️</div>
                 <div class="platform-name">YouTube</div>
+                <div class="platform-desc">Hesabınla giriş yap</div>
             </div>
             
-            <div class="platform-card" onclick="setPlatform('browser')">
+            <div class="platform-card" onclick="openBrowser()">
                 <div class="platform-icon browser">🌐</div>
                 <div class="platform-name">Tarayıcı</div>
+                <div class="platform-desc">İstediğin siteyi aç</div>
             </div>
         </div>
     </div>
@@ -596,6 +894,7 @@
     <div class="modal-overlay" id="joinModal">
         <div class="modal">
             <div class="modal-title">Odaya Katıl</div>
+            <div class="modal-subtitle">Arkadaşınızın oda kodunu girin</div>
             <input type="text" class="modal-input" id="joinCode" placeholder="ODA KODU" maxlength="6">
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-secondary" onclick="hideJoinModal()">İptal</button>
@@ -608,11 +907,12 @@
     <div class="watch-screen" id="watchScreen">
         <div class="watch-header">
             <div class="room-info">
-                Oda: <span class="room-code" id="displayRoomCode">---</span>
+                ODA KODU<br>
+                <span class="room-code" id="displayRoomCode">---</span>
             </div>
-            <div style="display:flex;gap:10px;align-items:center;">
+            <div class="header-actions">
                 <button class="voice-btn-header" id="voiceBtn" onclick="toggleVoice()">
-                    🎤 Sesli Sohbet
+                    🎤 Sesli
                 </button>
                 <button class="chat-toggle-btn" onclick="toggleChat()">💬</button>
             </div>
@@ -626,17 +926,18 @@
             
             <div class="video-placeholder" id="videoPlaceholder">
                 <div class="video-placeholder-icon">🎬</div>
-                <div>Video yüklemek için link yapıştırın</div>
+                <div class="video-placeholder-text">Video bekleniyor</div>
+                <div class="video-placeholder-sub">YouTube'dan film seçip linkini yapıştırın</div>
             </div>
             
             <div class="video-container" id="videoContainer">
-                <iframe id="youtubePlayer" allowfullscreen></iframe>
+                <iframe id="videoPlayer" allowfullscreen></iframe>
             </div>
         </div>
         
         <div class="controls-bar">
             <button class="control-btn" onclick="syncPlay()">▶️</button>
-            <button class="control-btn" onclick="syncPause()">⏸️</button>
+            <button class="control-btn primary" onclick="syncPause()">⏸️</button>
             <button class="control-btn" onclick="shareRoom()">🔗</button>
         </div>
     </div>
@@ -644,37 +945,31 @@
     <!-- ===== SESLİ SOHBET OVERLAY ===== -->
     <div class="voice-overlay" id="voiceOverlay">
         <div class="voice-animation">🎤</div>
-        <div class="voice-text">Sesli Sohbet Aktif</div>
+        <div class="voice-text">Sesli Sohbet</div>
+        <div class="voice-sub">Konuşmaya başlayabilirsiniz</div>
         <button class="voice-close-btn" onclick="toggleVoice()">Kapat</button>
     </div>
     
     <!-- ===== SOHBET PANELİ ===== -->
     <div class="chat-panel" id="chatPanel">
         <div class="chat-header">
-            <span style="font-weight:bold;">Sohbet</span>
-            <button onclick="toggleChat()" style="background:none;border:none;color:#fff;font-size:20px;">✕</button>
+            <span class="chat-title">Sohbet</span>
+            <button class="chat-close" onclick="toggleChat()">✕</button>
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Mesaj yaz..." onkeypress="if(event.key==='Enter')sendMessage()">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Mesajınızı yazın..." onkeypress="if(event.key==='Enter')sendMessage()">
             <button class="send-btn" onclick="sendMessage()">➤</button>
         </div>
     </div>
 
     <script>
-        // ===== JSONBin.io AYARLARI =====
-        const JSONBIN_API_KEY = '$2a$10$z8ZRX5QlmQ6q.mlba7AHGu4MDzY334o719WjrCgNy4qyLB54pvnS.';
-        const JSONBIN_BASE_URL = 'https://api.jsonbin.io/v3/b';
-        let currentBinId = null;
-        
         // Global Değişkenler
         let currentUser = '';
         let currentRoom = '';
         let isVoiceActive = false;
         let chatOpen = false;
         let isHost = false;
-        let currentVideoId = '';
-        let pollInterval = null;
         
         // Rastgele Oda Kodu
         function generateRoomCode() {
@@ -696,15 +991,37 @@
                 return;
             }
             currentUser = name;
+            document.getElementById('userGreeting').textContent = name;
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('homeScreen').style.display = 'flex';
         }
         
-        // Platform Seçimi
-        function setPlatform(platform) {
+        // YouTube Aç - Safari'de açar
+        function openYouTube() {
+            window.open('https://www.youtube.com', '_blank');
             currentRoom = generateRoomCode();
             isHost = true;
             openWatchScreen();
+            document.getElementById('videoUrl').placeholder = 'YouTube linkini yapıştır...';
+            document.getElementById('videoPlaceholder').innerHTML = `
+                <div class="video-placeholder-icon">▶️</div>
+                <div class="video-placeholder-text">YouTube Açıldı!</div>
+                <div class="video-placeholder-sub">Film seçip linkini buraya yapıştırın</div>
+            `;
+        }
+        
+        // Tarayıcı Aç - Safari'de Google açar
+        function openBrowser() {
+            window.open('https://www.google.com', '_blank');
+            currentRoom = generateRoomCode();
+            isHost = true;
+            openWatchScreen();
+            document.getElementById('videoUrl').placeholder = 'Site adresi girin...';
+            document.getElementById('videoPlaceholder').innerHTML = `
+                <div class="video-placeholder-icon">🌐</div>
+                <div class="video-placeholder-text">Tarayıcı Açıldı!</div>
+                <div class="video-placeholder-sub">İstediğiniz siteye gidin</div>
+            `;
         }
         
         // Oda Oluştur
@@ -742,138 +1059,29 @@
             document.getElementById('watchScreen').style.display = 'flex';
             document.getElementById('displayRoomCode').textContent = currentRoom;
             
-            // JSONBin oluştur veya bağlan
-            if (isHost) {
-                createRoomBin();
-            } else {
-                joinRoomBin();
-            }
-            
             addMessage('Sistem', `Oda: ${currentRoom}`);
-            addMessage('Sistem', 'YouTube linki yapıştırın ve "Yükle" basın.');
-        }
-        
-        // ===== JSONBin ODA OLUŞTUR =====
-        async function createRoomBin() {
-            try {
-                const response = await fetch(JSONBIN_BASE_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': JSONBIN_API_KEY,
-                        'X-Bin-Private': 'false'
-                    },
-                    body: JSON.stringify({
-                        roomCode: currentRoom,
-                        createdBy: currentUser,
-                        createdAt: Date.now(),
-                        videoId: '',
-                        videoUrl: '',
-                        messages: [
-                            { user: 'Sistem', text: 'Oda oluşturuldu!', time: Date.now() }
-                        ],
-                        users: [currentUser]
-                    })
-                });
-                
-                const data = await response.json();
-                currentBinId = data.metadata.id;
-                
-                // Polling başlat
-                startPolling();
-                
-                addMessage('Sistem', 'Oda oluşturuldu! Arkadaşınıza kodu gönderin.');
-            } catch (error) {
-                console.error('Oda oluşturma hatası:', error);
-                addMessage('Sistem', 'Oda oluşturulamadı. Çevrimdışı mod.');
-            }
-        }
-        
-        // ===== JSONBin ODAYA KATIL =====
-        async function joinRoomBin() {
-            // Tüm bin'leri ara (JSONBin'de direkt arama yok, bu yüzden basitleştirilmiş)
-            addMessage('Sistem', 'Odaya bağlanılıyor...');
-            
-            // Şimdilik basit bir yaklaşım: Kullanıcı manuel senkronize olacak
-            // Gerçek zamanlı için WebSocket gerekli
-            
-            addMessage('Sistem', 'Bağlandı! YouTube linkini yapıştırın.');
-        }
-        
-        // ===== POLLING (Basit Senkronizasyon) =====
-        function startPolling() {
-            if (pollInterval) clearInterval(pollInterval);
-            
-            pollInterval = setInterval(async () => {
-                if (!currentBinId) return;
-                
-                try {
-                    const response = await fetch(`${JSONBIN_BASE_URL}/${currentBinId}/latest`, {
-                        headers: { 'X-Master-Key': JSONBIN_API_KEY }
-                    });
-                    
-                    const data = await response.json();
-                    const room = data.record;
-                    
-                    // Yeni mesajları kontrol et
-                    if (room.messages && room.messages.length > 0) {
-                        const lastMsg = room.messages[room.messages.length - 1];
-                        // Burada yeni mesajları gösterebiliriz
-                    }
-                    
-                    // Video durumunu kontrol et
-                    if (room.videoId && room.videoId !== currentVideoId) {
-                        if (!isHost) {
-                            loadYouTubeVideo(room.videoId);
-                        }
-                    }
-                } catch (error) {
-                    console.log('Polling hatası:', error);
-                }
-            }, 3000); // Her 3 saniyede bir kontrol
-        }
-        
-        // ===== VERİ GÜNCELLE =====
-        async function updateRoomData(data) {
-            if (!currentBinId) return;
-            
-            try {
-                await fetch(`${JSONBIN_BASE_URL}/${currentBinId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': JSONBIN_API_KEY
-                    },
-                    body: JSON.stringify(data)
-                });
-            } catch (error) {
-                console.error('Güncelleme hatası:', error);
-            }
+            addMessage('Sistem', 'Arkadaşınızı davet edin!');
         }
         
         // Video Yükle
         function loadVideo() {
             const url = document.getElementById('videoUrl').value.trim();
-            const videoId = extractYouTubeId(url);
             
-            if (!videoId) {
-                alert('Geçerli bir YouTube linki girin!\nÖrnek: https://www.youtube.com/watch?v=VIDEO_ID');
+            // YouTube kontrolü
+            const videoId = extractYouTubeId(url);
+            if (videoId) {
+                loadYouTubeVideo(videoId);
                 return;
             }
             
-            loadYouTubeVideo(videoId);
-            currentVideoId = videoId;
-            
-            // JSONBin'e kaydet
-            if (currentBinId) {
-                updateRoomData({
-                    roomCode: currentRoom,
-                    videoId: videoId,
-                    videoUrl: url,
-                    updatedBy: currentUser,
-                    updatedAt: Date.now()
-                });
+            // Normal link (Safari'de aç)
+            if (url && !url.includes('youtube')) {
+                window.open(url, '_blank');
+                addMessage('Sistem', '🔗 Safari\'de açıldı');
+                return;
             }
+            
+            alert('Geçerli bir YouTube linki girin!');
         }
         
         function loadYouTubeVideo(videoId) {
@@ -881,24 +1089,18 @@
             
             document.getElementById('videoPlaceholder').style.display = 'none';
             document.getElementById('videoContainer').classList.add('active');
-            document.getElementById('youtubePlayer').src = embedUrl;
+            document.getElementById('videoPlayer').src = embedUrl;
             
             addMessage('Sistem', '🎬 Video yüklendi!');
         }
         
         // Senkronizasyon
         function syncPlay() {
-            addMessage('Sistem', '▶️ Oynatma senkronize edildi');
-            if (currentBinId) {
-                updateRoomData({ action: 'play', time: Date.now() });
-            }
+            addMessage('Sistem', '▶️ Oynatılıyor...');
         }
         
         function syncPause() {
-            addMessage('Sistem', '⏸️ Duraklatma senkronize edildi');
-            if (currentBinId) {
-                updateRoomData({ action: 'pause', time: Date.now() });
-            }
+            addMessage('Sistem', '⏸️ Duraklatıldı');
         }
         
         // Sesli Sohbet
@@ -909,12 +1111,14 @@
             
             if (isVoiceActive) {
                 btn.classList.add('active');
+                btn.innerHTML = '🎤 Aktif';
                 overlay.classList.add('active');
-                addMessage('Sistem', '🎤 Sesli sohbet aktif');
+                addMessage('Sistem', '🎤 Sesli sohbet başlatıldı');
             } else {
                 btn.classList.remove('active');
+                btn.innerHTML = '🎤 Sesli';
                 overlay.classList.remove('active');
-                addMessage('Sistem', '🎤 Sesli sohbet kapalı');
+                addMessage('Sistem', '🎤 Sesli sohbet kapandı');
             }
         }
         
@@ -925,51 +1129,36 @@
         }
         
         // Mesaj Gönder
-        async function sendMessage() {
+        function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
             if (!text) return;
             
-            addMessage(currentUser, text);
+            addMessage(currentUser, text, true);
             input.value = '';
-            
-            // JSONBin'e kaydet
-            if (currentBinId) {
-                try {
-                    const response = await fetch(`${JSONBIN_BASE_URL}/${currentBinId}/latest`, {
-                        headers: { 'X-Master-Key': JSONBIN_API_KEY }
-                    });
-                    const data = await response.json();
-                    const room = data.record;
-                    
-                    room.messages.push({
-                        user: currentUser,
-                        text: text,
-                        time: Date.now()
-                    });
-                    
-                    await updateRoomData(room);
-                } catch (error) {
-                    console.error('Mesaj kaydetme hatası:', error);
-                }
-            }
         }
         
         // Mesaj Ekle
-        function addMessage(user, text) {
+        function addMessage(user, text, isOwn = false) {
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
-            div.className = 'message';
-            div.innerHTML = `<div class="message-user">${user}</div><div>${text}</div>`;
+            div.className = 'message' + (isOwn ? ' own' : '');
+            div.innerHTML = `
+                <div class="message-user">${user}</div>
+                <div class="message-text">${text}</div>
+            `;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
         
         // Oda Kodunu Paylaş
         function shareRoom() {
-            const text = `İREMİM İLE FİLM oda kodum: ${currentRoom}`;
+            const text = `İREMİM İLE FİLM 🎬\nOda Kodu: ${currentRoom}\nSenkronize izlemeye katıl!`;
             if (navigator.share) {
-                navigator.share({ title: 'İREMİM İLE FİLM', text: text });
+                navigator.share({ 
+                    title: 'İREMİM İLE FİLM', 
+                    text: text 
+                });
             } else {
                 alert(text);
             }
@@ -977,3 +1166,4 @@
     </script>
 </body>
 </html>
+
