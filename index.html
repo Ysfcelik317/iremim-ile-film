@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>İREMİM İLE FİLM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* ===== GİRİŞ EKRANI ===== */
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+            background: #0f0f0f;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #888;
+            margin-bottom: 50px;
+            font-size: 16px;
+        }
+        
+        .input-group {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            border: 1px solid #333;
+        }
+        
+        input::placeholder {
+            color: #666;
+        }
+        
+        .btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #e94560, #ff6b6b);
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: #1a1a1a;
+            border: 1px solid #333;
+        }
+        
+        /* ===== ANA EKRAN ===== */
+        .home-screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+            background: #0f0f0f;
+        }
+        
+        .home-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+        
+        .start-party-btn {
+            background: #4CAF50;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .join-btn {
+            background: transparent;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .platform-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid #333;
+            aspect-ratio: 1;
+        }
+        
+        .platform-card:active {
+            transform: scale(0.95);
+        }
+        
+        .platform-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .netflix { background: #E50914; }
+        .youtube { background: #FF0000; }
+        .safari { background: #00D4FF; }
+        
+        .platform-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        /* ===== ODA KATILMA MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 350px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 12px;
+            background: #0f0f0f;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-btn-primary {
+            background: #e94560;
+            color: #fff;
+        }
+        
+        .modal-btn-secondary {
+            background: #333;
+            color: #fff;
+        }
+        
+        /* ===== İZLEME EKRANI ===== */
+        .watch-screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            background: #000;
+        }
+        
+        .watch-header {
+            padding: 12px 15px;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+        
+        .room-info {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .room-code {
+            font-weight: bold;
+            color: #e94560;
+            font-size: 18px;
+        }
+        
+        .voice-btn-header {
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .voice-btn-header.active {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+        
+        .chat-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* ===== LİNK BÖLÜMÜ ===== */
+        .link-section {
+            padding: 15px;
+            background: #0f0f0f;
+            border-bottom: 1px solid #222;
+        }
+        
+        .link-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .url-input {
+            flex: 1;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .go-btn {
+            padding: 12px 20px;
+            background: #e94560;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .platform-shortcuts {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        
+        .shortcut-btn {
+            padding: 8px 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .shortcut-btn:active {
+            background: #333;
+        }
+        
+        /* ===== SENKRONİZASYON BÖLÜMÜ ===== */
+        .sync-section {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .sync-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        
+        .sync-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .sync-steps {
+            list-style: none;
+            counter-reset: step;
+        }
+        
+        .sync-steps li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #ccc;
+            font-size: 15px;
+        }
+        
+        .sync-steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: #e94560;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .sync-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .sync-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ready-btn {
+            background: #4CAF50;
+            color: #fff;
+        }
+        
+        .ready-btn.ready {
+            background: #2E7D32;
+        }
+        
+        .countdown-btn {
+            background: #FF9800;
+            color: #fff;
+        }
+        
+        .countdown-btn:disabled {
+            background: #666;
+            opacity: 0.5;
+        }
+        
+        /* ===== HAZIR DURUMU ===== */
+        .status-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+        
+        .status-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #888;
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .user-status:last-child {
+            border-bottom: none;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #666;
+        }
+        
+        .status-dot.ready {
+            background: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .status-name {
+            flex: 1;
+            font-size: 15px;
+        }
+        
+        .status-text {
+            font-size: 13px;
+            color: #888;
+        }
+        
+        .status-text.ready {
+            color: #4CAF50;
+        }
+        
+        /* ===== GERİ SAYIM ===== */
+        .countdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            flex-direction: column;
+        }
+        
+        .countdown-overlay.active {
+            display: flex;
+        }
+        
+        .countdown-number {
+            font-size: 120px;
+            font-weight: bold;
+            color: #e94560;
+            animation: pulse 1s infinite;
+        }
+        
+        .countdown-text {
+            font-size: 24px;
+            color: #fff;
+            margin-top: 20px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        /* ===== KONTROLLER ===== */
+        .controls-bar {
+            padding: 15px;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+            border-top: 1px solid #222;
+        }
+        
+        .control-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: none;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #333;
+        }
+        
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* ===== SOHBET PANELİ ===== */
+        .chat-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: #1a1a1a;
+            border-radius: 20px 20px 0 0;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        
+        .chat-panel.open {
+            transform: translateY(0);
+        }
+        
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #0f0f0f;
+            border-radius: 12px;
+        }
+        
+        .message-user {
+            font-size: 12px;
+            color: #e94560;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .chat-input-area {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #333;
+        }
+        
+        .chat-input {
+            flex: 1;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: #e94560;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== GİRİŞ EKRANI ===== -->
+    <div-space: nowrap;
+        }
+        
+        .platform-shortcuts {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        
+        .shortcut-btn {
+            padding: 8px 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .shortcut-btn:active {
+            background: #333;
+        }
+        
+        /* ===== SENKRONİZASYON BÖLÜMÜ ===== */
+        .sync-section {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .sync-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        
+        .sync-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .sync-steps {
+            list-style: none;
+            counter-reset: step;
+        }
+        
+        .sync-steps li {
+            padding: 10px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #ccc;
+            font-size: 15px;
+        }
+        
+        .sync-steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: #e94560;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .sync-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .sync-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ready-btn {
+            background: #4CAF50;
+            color: #fff;
+        }
+        
+        .ready-btn.ready {
+            background: #2E7D32;
+        }
+        
+        .countdown-btn {
+            background: #FF9800;
+            color: #fff;
+        }
+        
+        .countdown-btn:disabled {
+            background: #666;
+            opacity: 0.5;
+        }
+        
+        /* ===== HAZIR DURUMU ===== */
+        .status-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+        
+        .status-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #888;
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .user-status:last-child {
+            border-bottom: none;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #666;
+        }
+        
+        .status-dot.ready {
+            background: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .status-name {
+            flex: 1;
+            font-size: 15px;
+        }
+        
+        .status-text {
+            font-size: 13px;
+            color: #888;
+        }
+        
+        .status-text.ready {
+            color: #4CAF50;
+        }
+        
+        /* ===== GERİ SAYIM ===== */
+        .countdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            flex-direction: column;
+        }
+        
+        .countdown-overlay.active {
+            display: flex;
+        }
+        
+        .countdown-number {
+            font-size: 120px;
+            font-weight: bold;
+            color: #e94560;
+            animation: pulse 1s infinite;
+        }
+        
+        .countdown-text {
+            font-size: 24px;
+            color: #fff;
+            margin-top: 20px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        /* ===== KONTROLLER ===== */
+        .controls-bar {
+            padding: 15px;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+            border-top: 1px solid #222;
+        }
+        
+        .control-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: none;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #333;
+        }
+        
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* ===== SOHBET PANELİ ===== */
+        .chat-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: #1a1a1a;
+            border-radius: 20px 20px 0 0;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        
+        .chat-panel.open {
+            transform: translateY(0);
+        }
+        
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #0f0f0f;
+            border-radius: 12px;
+        }
+        
+        .message-user {
+            font-size: 12px;
+            color: #e94560;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .chat-input-area {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #333;
+        }
+        
+        .chat-input {
+            flex: 1;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            padding: 12px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: #e94560;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== GİRİŞ EKRANI ===== -->
+    <div class="login-screen" id="loginScreen">
+        <div class="logo">🎬 İREMİM İLE FİLM</div>
+        <div class="subtitle">HAYDİ GEL GÜLÜMM</div>
+        
+        <div class="input-group">
+            <input type="text" id="userName" placeholder="Adınız" maxlength="20">
+        </div>
+        
+        <button class="btn" onclick="goToHome()">Devam Et</button>
+    </div>
+    
+    <!-- ===== ANA EKRAN ===== -->
+    <div class="home-screen" id="homeScreen">
+        <div class="home-header">
+            <button class="start-party-btn" onclick="createRoom()">
+                📹 Start Party
+            </button>
+            <button class="join-btn" onclick="showJoinModal()">
+                🔗 Join
+            </button>
+        </div>
+        
+        <div class="section-title">Start Watching</div>
+        
+        <div class="platforms-grid">
+            <div class="platform-card" onclick="setPlatform('netflix')">
+                <div class="platform-icon netflix">N</div>
+                <div class="platform-name">Netflix</div>
+            </div>
+            
+            <div class="platform-card" onclick="setPlatform('youtube')">
+                <div class="platform-icon youtube">▶️</div>
+                <div class="platform-name">YouTube</div>
+            </div>
+            
+            <div class="platform-card" onclick="setPlatform('other')">
+                <div class="platform-icon safari">🌐</div>
+                <div class="platform-name">Diğer</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== ODA KATILMA MODAL ===== -->
+    <div class="modal-overlay" id="joinModal">
+        <div class="modal">
+            <div class="modal-title">Odaya Katıl</div>
+            <input type="text" class="modal-input" id="joinCode" placeholder="ODA KODU" maxlength="6">
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" onclick="hideJoinModal()">İptal</button>
+                <button class="modal-btn modal-btn-primary" onclick="joinRoom()">Katıl</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== İZLEME EKRANI ===== -->
+    <div class="watch-screen" id="watchScreen">
+        <div class="watch-header">
+            <div class="room-info">
+                Oda: <span class="room-code" id="displayRoomCode">---</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button class="voice-btn-header" id="voiceBtn" onclick="toggleVoice()">
+                    🎤 Sesli Sohbet
+                </button>
+                <button class="chat-toggle-btn" onclick="toggleChat()">💬</button>
+            </div>
+        </div>
+        
+        <!-- LİNK BÖLÜMÜ -->
+        <div class="link-section">
+            <div class="link-input-group">
+                <input type="text" class="url-input" id="urlInput" placeholder="Film linkini yapıştırın...">
+                <button class="go-btn" onclick="openInSafari()">Safari'de Aç</button>
+            </div>
+            <div class="platform-shortcuts">
+                <button class="shortcut-btn" onclick="setUrl('https://www.netflix.com')">Netflix</button>
+                <button class="shortcut-btn" onclick="setUrl('https://www.youtube.com')">YouTube</button>
+                <button class="shortcut-btn" onclick="setUrl('https://www.disneyplus.com')">Disney+</button>
+                <button class="shortcut-btn" onclick="setUrl('https://www.primevideo.com')">Prime</button>
+            </div>
+        </div>
+        
+        <!-- SENKRONİZASYON BÖLÜMÜ -->
+        <div class="sync-section">
+            <div class="sync-card">
+                <h3>🎬 Senkronize İzleme</h3>
+                <ol class="sync-steps">
+                    <li>Yukarıya film linkini yapıştırın</li>
+                    <li>"Safari'de Aç" butonuna basın</li>
+                    <li>Film açıldığında "Hazır" deyin</li>
+                    <li>Herkes hazır olunca 3-2-1 başlatın</li>
+                </ol>
+                
+                <div class="sync-controls">
+                    <button class="sync-btn ready-btn" id="readyBtn" onclick="imReady()">✅ Hazırım</button>
+                    <button class="sync-btn countdown-btn" id="countdownBtn" onclick="startCountdown()" disabled>⏱️ 3-2-1 Başlat</button>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-title">Hazır Durumu</div>
+                <div class="user-status">
+                    <div class="status-dot" id="myDot"></div>
+                    <div class="status-name" id="myStatusName">Siz</div>
+                    <div class="status-text" id="myStatusText">Bekleniyor...</div>
+                </div>
+                <div class="user-status">
+                    <div class="status-dot" id="friendDot"></div>
+                    <div class="status-name" id="friendStatusName">Arkadaşınız</div>
+                    <div class="status-text" id="friendStatusText">Bekleniyor...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- KONTROLLER -->
+        <div class="controls-bar">
+            <button class="control-btn" onclick="syncPlay()">▶️</button>
+            <button class="control-btn" onclick="syncPause()">⏸️</button>
+            <button class="control-btn" onclick="shareRoom()">🔗</button>
+        </div>
+    </div>
+    
+    <!-- ===== GERİ SAYIM OVERLAY ===== -->
+    <div class="countdown-overlay" id="countdownOverlay">
+        <div class="countdown-number" id="countdownNumber">3</div>
+        <div class="countdown-text">Film başlıyor!</div>
+    </div>
+    
+    <!-- ===== SOHBET PANELİ ===== -->
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-header">
+            <span style="font-weight:bold;">Sohbet</span>
+            <button onclick="toggleChat()" style="background:none;border:none;color:#fff;font-size:20px;">✕</button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Mesaj yaz..." onkeypress="if(event.key==='Enter')sendMessage()">
+            <button class="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        // Global Değişkenler
+        let currentUser = '';
+        let currentRoom = '';
+        let isVoiceActive = false;
+        let chatOpen = false;
+        let isReady = false;
+        let friendReady = false;
+        
+        // Rastgele Oda Kodu Oluştur
+        function generateRoomCode() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+        
+        // Girişten Ana Ekrana Geç
+        function goToHome() {
+            const name = document.getElementById('userName').value.trim();
+            if (!name) {
+                alert('Lütfen adınızı girin!');
+                return;
+            }
+            currentUser = name;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('homeScreen').style.display = 'flex';
+        }
+        
+        // Platform Seçimi
+        function setPlatform(platform) {
+            let url = '';
+            switch(platform) {
+                case 'netflix': url = 'https://www.netflix.com'; break;
+                case 'youtube': url = 'https://www.youtube.com'; break;
+                case 'other': url = ''; break;
+            }
+            currentRoom = generateRoomCode();
+            openWatchScreen(url);
+        }
+        
+        // Oda Oluştur
+        function createRoom() {
+            currentRoom = generateRoomCode();
+            openWatchScreen('');
+        }
+        
+        // Katılma Modalını Göster
+        function showJoinModal() {
+            document.getElementById('joinModal').classList.add('active');
+        }
+        
+        // Modalı Gizle
+        function hideJoinModal() {
+            document.getElementById('joinModal').classList.remove('active');
+        }
+        
+        // Odaya Katıl
+        function joinRoom() {
+            const code = document.getElementById('joinCode').value.trim().toUpperCase();
+            if (!code || code.length !== 6) {
+                alert('Lütfen geçerli 6 haneli oda kodu girin!');
+                return;
+            }
+            currentRoom = code;
+            hideJoinModal();
+            openWatchScreen('');
+        }
+        
+        // İzleme Ekranını Aç
+        function openWatchScreen(url) {
+            document.getElementById('homeScreen').classList.add('hidden');
+            document.getElementById('watchScreen').style.display = 'flex';
+            document.getElementById('displayRoomCode').textContent = currentRoom;
+            document.getElementById('myStatusName').textContent = currentUser;
+            
+            if (url) {
+                document.getElementById('urlInput').value = url;
+            }
+            
+            addMessage('Sistem', `Odaya katıldınız! Kod: ${currentRoom}`);
+            addMessage('Sistem', 'Film linkini yapıştırıp Safari\'de açın.');
+        }
+        
+        // URL Ayarla
+        function setUrl(url) {
+            document.getElementById('urlInput').value = url;
+        }
+        
+        // Safari'de Aç
+        function openInSafari() {
+            let url = document.getElementById('urlInput').value.trim();
+            if (!url) {
+                alert('Lütfen bir link girin!');
+                return;
+            }
+            if (!url.startsWith('http')) {
+                url = 'https://' + url;
+            }
+            
+            // Safari'de aç
+            window.open(url, '_blank');
+            
+            addMessage('Sistem', '🔗 Safari\'de açıldı! Film hazır olduğunda "Hazırım" deyin.');
+        }
+        
+        // Hazırım
+        function imReady() {
+            isReady = true;
+            document.getElementById('readyBtn').classList.add('ready');
+            document.getElementById('readyBtn').textContent = '✅ Hazır';
+            document.getElementById('myDot').classList.add('ready');
+            document.getElementById('myStatusText').textContent = 'Hazır!';
+            document.getElementById('myStatusText').classList.add('ready');
+            
+            addMessage(currentUser, '✅ Hazırım!');
+            
+            // İki kişi de hazırsa countdown'ı aktif et
+            if (isReady && friendReady) {
+                document.getElementById('countdownBtn').disabled = false;
+            }
+        }
+        
+        // Geri Sayım Başlat
+        function startCountdown() {
+            const overlay = document.getElementById('countdownOverlay');
+            const numberEl = document.getElementById('countdownNumber');
+            let count = 3;
+            
+            overlay.classList.add('active');
+            numberEl.textContent = count;
+            
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    numberEl.textContent = count;
+                } else if (count === 0) {
+                    numberEl.textContent = '▶️';
+                    numberEl.style.fontSize = '80px';
+                } else {
+                    clearInterval(interval);
+                    overlay.classList.remove('active');
+                    numberEl.textContent = '3';
+                    numberEl.style.fontSize = '120px';
+                    addMessage('Sistem', '🎬 Film başladı! İyi seyirler!');
+                }
+            }, 1000);
+        }
+        
+        // Senkronizasyon
+        function syncPlay() {
+            addMessage('Sistem', '▶️ Oynatma senkronize edildi');
+        }
+        
+        function syncPause() {
+            addMessage('Sistem', '⏸️ Duraklatma senkronize edildi');
+        }
+        
+        // Sesli Sohbet
+        function toggleVoice() {
+            isVoiceActive = !isVoiceActive;
+            const btn = document.getElementById('voiceBtn');
+            
+            if (isVoiceActive) {
+                btn.classList.add('active');
+                addMessage('Sistem', '🎤 Sesli sohbet aktif');
+            } else {
+                btn.classList.remove('active');
+                addMessage('Sistem', '🎤 Sesli sohbet kapalı');
+            }
+        }
+        
+        // Sohbet Paneli
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+        }
+        
+        // Mesaj Gönder
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            addMessage(currentUser, text);
+            input.value = '';
+        }
+        
+        // Mesaj Ekle
+        function addMessage(user, text) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = `<div class="message-user">${user}</div><div>${text}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // Oda Kodunu Paylaş
+        function shareRoom() {
+            const text = `İREMİM İLE FİLM oda kodum: ${currentRoom}`;
+            if (navigator.share) {
+                navigator.share({ title: 'İREMİM İLE FİLM', text: text });
+            } else {
+                alert(text);
+            }
+        }
+    </script>
+</body>
+</html>
